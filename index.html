@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zombie Arena - MVP</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0e0f14;
+        color: #e8ecf1;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+      #ui {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 18px;
+        z-index: 2;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+        --wave-color: #6ee7ff;
+      }
+      .hud-card {
+        min-width: 240px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: linear-gradient(180deg, rgba(16, 20, 30, 0.72), rgba(10, 12, 18, 0.72));
+        box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+        padding: 12px 12px;
+        backdrop-filter: blur(6px);
+      }
+      .hud-line {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        line-height: 1.1;
+      }
+      .hud-label {
+        font-size: 12px;
+        letter-spacing: 1.8px;
+        font-weight: 800;
+        opacity: 0.75;
+      }
+      .hud-value {
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: 0.4px;
+      }
+      #waveValue {
+        color: var(--wave-color);
+        text-shadow: 0 0 18px color-mix(in srgb, var(--wave-color) 45%, transparent);
+      }
+      @keyframes wavePop {
+        0% { transform: scale(1); filter: brightness(1); }
+        35% { transform: scale(1.08); filter: brightness(1.22); }
+        100% { transform: scale(1); filter: brightness(1); }
+      }
+      .wave-pop {
+        animation: wavePop 260ms ease-out;
+      }
+      @keyframes hudFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-2px); }
+      }
+      .hud-card {
+        animation: hudFloat 3.2s ease-in-out infinite;
+      }
+      @keyframes dangerPulse {
+        0%, 100% { color: rgba(255, 210, 210, 0.96); text-shadow: 0 0 0 rgba(255, 60, 60, 0); }
+        50% { color: rgba(255, 120, 120, 0.98); text-shadow: 0 0 16px rgba(255, 60, 60, 0.28); }
+      }
+      .health-danger #healthValue {
+        animation: dangerPulse 0.75s ease-in-out infinite;
+      }
+      #powerLine {
+        display: none;
+      }
+      .power-active #powerLine {
+        display: flex;
+      }
+      #powerValue {
+        color: #34d399;
+        text-shadow: 0 0 16px rgba(52, 211, 153, 0.25);
+      }
+      #shieldLine, #stunLine {
+        display: none;
+      }
+      .shield-active #shieldLine {
+        display: flex;
+      }
+      .stun-active #stunLine {
+        display: flex;
+      }
+      #shieldValue {
+        color: #60a5fa;
+        text-shadow: 0 0 16px rgba(96, 165, 250, 0.22);
+      }
+      #stunValue {
+        color: #fbbf24;
+        text-shadow: 0 0 16px rgba(251, 191, 36, 0.22);
+      }
+      #highscore {
+        font-size: 12px;
+        opacity: 0.75;
+        letter-spacing: 0.4px;
+      }
+      #restart {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.55);
+        z-index: 3;
+        text-align: center;
+        padding: 24px;
+      }
+      #restart .card {
+        width: min(560px, 92vw);
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: linear-gradient(180deg, rgba(20, 26, 38, 0.92), rgba(12, 14, 20, 0.92));
+        box-shadow: 0 20px 70px rgba(0,0,0,0.55);
+        padding: 18px 16px;
+      }
+      #restart .headline {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+      #restart .sub {
+        opacity: 0.78;
+        margin-bottom: 14px;
+        line-height: 1.4;
+      }
+      #revivePrompt {
+        white-space: pre-wrap;
+      }
+      #restart .row {
+        justify-content: center;
+        gap: 10px;
+      }
+      #reviveChoices {
+        display: none;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      #reviveForm {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      #reviveAnswer {
+        width: 180px;
+        padding: 12px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(10, 12, 18, 0.8);
+        color: #e8ecf1;
+        outline: none;
+        font-size: 16px;
+        text-align: center;
+      }
+      #reviveAnswer:focus {
+        border-color: rgba(255,255,255,0.26);
+      }
+      #reviveError {
+        min-height: 18px;
+        margin-top: 10px;
+        font-size: 12px;
+        color: rgba(255, 140, 140, 0.95);
+        opacity: 0.95;
+      }
+      #reviveSolution {
+        display: none;
+        margin-top: 12px;
+        padding: 12px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(10, 12, 18, 0.65);
+        text-align: left;
+        white-space: pre-wrap;
+        line-height: 1.35;
+      }
+      #continueBtn {
+        display: none;
+        margin-top: 12px;
+        width: 100%;
+        justify-content: center;
+      }
+      #hint {
+        position: fixed;
+        bottom: 16px;
+        left: 16px;
+        font-size: 12px;
+        opacity: 0.7;
+        z-index: 2;
+      }
+      #hurtFlash {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        background: rgb(255, 40, 40);
+        opacity: 0;
+      }
+      #whiteout {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+        background: #ffffff;
+        opacity: 0;
+        transition: opacity 180ms ease-out;
+      }
+      @keyframes hurtFlash {
+        0% { opacity: 0; }
+        18% { opacity: 0.55; }
+        100% { opacity: 0; }
+      }
+      #hurtFlash.flash {
+        animation: hurtFlash 180ms ease-out;
+      }
+      canvas {
+        display: block;
+      }
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 4;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: radial-gradient(1200px 700px at 50% 40%, rgba(30, 40, 60, 0.45), rgba(0,0,0,0.75));
+        backdrop-filter: blur(6px);
+      }
+
+      .panel {
+        width: min(760px, 92vw);
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: linear-gradient(180deg, rgba(20, 26, 38, 0.92), rgba(12, 14, 20, 0.92));
+        box-shadow: 0 20px 70px rgba(0,0,0,0.55);
+        padding: 22px 20px;
+      }
+
+      .title {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+        margin: 0 0 6px;
+      }
+
+      .subtitle {
+        margin: 0 0 18px;
+        opacity: 0.78;
+        line-height: 1.4;
+      }
+
+      .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .controls {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .btn {
+        cursor: pointer;
+        user-select: none;
+        padding: 12px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(28, 34, 48, 0.95);
+        color: #e8ecf1;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255,255,255,0.22);
+        background: rgba(40, 52, 76, 0.95);
+      }
+      .btn:active {
+        transform: translateY(0px) scale(0.99);
+      }
+
+      .menu-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      @keyframes heartbeat {
+        0% { transform: scale(1); }
+        6% { transform: scale(1.06); }
+        12% { transform: scale(1); }
+        18% { transform: scale(1.09); }
+        26% { transform: scale(1); }
+        100% { transform: scale(1); }
+      }
+
+      .heart-btn {
+        position: relative;
+        width: 220px;
+        height: 200px;
+        margin: 16px 0 12px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        transform: translateZ(0);
+        animation: heartbeat 1.35s ease-in-out infinite;
+        filter: drop-shadow(0 14px 28px rgba(0,0,0,0.55));
+      }
+      .heart-svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        filter: drop-shadow(0 10px 16px rgba(0,0,0,0.35));
+      }
+      .heart-btn:hover {
+        animation-duration: 1.15s;
+      }
+      .heart-btn:active {
+        transform: scale(0.98);
+      }
+      .heart-label {
+        position: absolute;
+        left: 50%;
+        top: 56%;
+        transform: translate(-50%, -50%);
+        font-weight: 900;
+        letter-spacing: 0.6px;
+        font-size: 22px;
+        color: rgba(255,255,255,0.96);
+        text-shadow: 0 2px 14px rgba(0,0,0,0.65);
+        pointer-events: none;
+      }
+
+      .meta {
+        font-size: 12px;
+        opacity: 0.72;
+        line-height: 1.5;
+      }
+
+      #menuSprites {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+      #menu .panel {
+        position: relative;
+        z-index: 1;
+      }
+      .menu-sprite {
+        position: absolute;
+        left: -120px;
+        width: 96px;
+        height: 96px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        image-rendering: auto;
+        opacity: 0.22;
+        filter: saturate(0.9) blur(0px);
+        will-change: transform;
+        animation-name: menuDrift;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+      }
+      @keyframes menuDrift {
+        from { transform: translate3d(-140px, 0, 0) rotate(0deg); }
+        to { transform: translate3d(calc(100vw + 240px), 0, 0) rotate(8deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hurtFlash"></div>
+    <div id="whiteout"></div>
+    <div id="ui">
+      <div class="hud-card" id="hudCard">
+        <div class="hud-line" id="waveLine">
+          <div class="hud-label">WAVE</div>
+          <div class="hud-value" id="waveValue">1</div>
+        </div>
+        <div class="hud-line" style="margin-top:10px;">
+          <div class="hud-label">TIME</div>
+          <div class="hud-value" id="timerValue">00:00</div>
+        </div>
+        <div class="hud-line" style="margin-top:10px;">
+          <div class="hud-label">HEALTH</div>
+          <div class="hud-value" id="healthValue">100</div>
+        </div>
+        <div class="hud-line" id="powerLine" style="margin-top:10px;">
+          <div class="hud-label">ADRENALINE</div>
+          <div class="hud-value" id="powerValue">0.0s</div>
+        </div>
+        <div class="hud-line" id="shieldLine" style="margin-top:10px;">
+          <div class="hud-label">SHIELD</div>
+          <div class="hud-value" id="shieldValue">0.0s</div>
+        </div>
+        <div class="hud-line" id="stunLine" style="margin-top:10px;">
+          <div class="hud-label">STUN</div>
+          <div class="hud-value" id="stunValue">0.0s</div>
+        </div>
+        <div id="highscore" style="margin-top:10px;">
+          Best: Wave <span id="bestWave">-</span> &bull; <span id="bestTime">--:--</span>
+        </div>
+      </div>
+    </div>
+    <div id="menu" class="overlay" style="display:flex;">
+      <div id="menuSprites"></div>
+      <div class="panel">
+        <div class="menu-center">
+          <div class="title">Zombie Arena (MVP)</div>
+          <div class="subtitle">Survive the waves. Avoid zombies.</div>
+          <button id="startBtn" class="heart-btn" aria-label="Start game">
+            <svg class="heart-svg" viewBox="0 0 64 64" aria-hidden="true">
+              <defs>
+                <linearGradient id="heartG" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ff5f85"/>
+                  <stop offset="1" stop-color="#c41432"/>
+                </linearGradient>
+                <radialGradient id="heartHi" cx="30%" cy="28%" r="55%">
+                  <stop offset="0" stop-color="rgba(255,255,255,0.38)"/>
+                  <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+              </defs>
+              <!-- Cleaner, more symmetrical heart -->
+              <path d="M32 56 C32 56 10 42.5 10 24.5 C10 15.5 16 10 24 10 C28.5 10 31.6 12.4 32 14.2 C32.4 12.4 35.5 10 40 10 C48 10 54 15.5 54 24.5 C54 42.5 32 56 32 56 Z" fill="url(#heartG)"/>
+              <path d="M32 53.8 C32 53.8 13 41.6 13 25.2 C13 17.2 18.1 12.6 25 12.6 C28.7 12.6 31.1 14.3 32 15.9 C32.9 14.3 35.3 12.6 39 12.6 C45.9 12.6 51 17.2 51 25.2 C51 41.6 32 53.8 32 53.8 Z" fill="url(#heartHi)"/>
+              <path d="M32 56 C32 56 10 42.5 10 24.5 C10 15.5 16 10 24 10 C28.5 10 31.6 12.4 32 14.2 C32.4 12.4 35.5 10 40 10 C48 10 54 15.5 54 24.5 C54 42.5 32 56 32 56 Z" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.2"/>
+            </svg>
+            <span class="heart-label">START</span>
+          </button>
+          <div class="meta">WASD / Arrows to move • Esc to pause</div>
+        </div>
+      </div>
+    </div>
+    <div id="pause" class="overlay">
+      <div class="panel" style="text-align:center;">
+        <div class="title" style="font-size:26px;">Paused</div>
+        <div class="subtitle">Press Esc to resume • Press R to restart</div>
+        <div class="controls" style="justify-content:center;">
+          <button id="resumeBtn" class="btn">Resume</button>
+          <button id="restartBtn" class="btn">Restart</button>
+          <button id="menuBtn" class="btn">Main Menu</button>
+        </div>
+      </div>
+    </div>
+    <div id="restart">
+      <div class="card">
+        <div class="headline" id="deathHeadline">You were overwhelmed by zombies.</div>
+        <div id="revivePrompt" class="sub">Loading question…</div>
+        <div id="reviveChoices" class="controls"></div>
+        <div id="reviveForm" class="controls">
+          <input id="reviveAnswer" autocomplete="off" placeholder="Type answer" />
+          <button id="reviveBtn" class="btn">Revive</button>
+          <button id="restartFromDeathBtn" class="btn">Restart</button>
+        </div>
+        <div id="reviveError"></div>
+        <div id="reviveSolution"></div>
+        <div id="continueBtn" class="controls">
+          <button id="continueRestartBtn" class="btn">Continue</button>
+        </div>
+        <div id="reviveTip" class="meta" style="margin-top:8px;">Tip: press Enter to revive • press R to restart</div>
+      </div>
+    </div>
+    <div id="hint">WASD / Arrow keys to move • Avoid zombies</div>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

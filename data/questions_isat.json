@@ -1,0 +1,347 @@
+{
+  "unit": "ISAT Practice: Proportions, Rates, Percents",
+  "questions": [
+    {
+      "id": "isat-q001",
+      "prompt": "Which table represents a proportional relationship between x and y?\n\nA: x: 0, 1, 2, 3; y: 0, 5, 10, 15\nB: x: 0, 1, 2, 3; y: 2, 4, 6, 8\nC: x: 0, 2, 4, 6; y: 0, 3, 7, 10\nD: x: 0, 1, 2, 3; y: 0, 4, 9, 16",
+      "type": "mcq",
+      "choices": ["A", "B", "C", "D"],
+      "answer": "A",
+      "difficulty": "medium",
+      "explanation": "A has a constant ratio y/x = 5 for x>0 and passes through (0,0)."
+    },
+    {
+      "id": "isat-q002",
+      "prompt": "Select True or False: A proportional relationship must include the point (0, 0).",
+      "type": "mcq",
+      "choices": ["True", "False"],
+      "answer": "True",
+      "difficulty": "easy",
+      "explanation": "Proportional relationships have the form y = kx, so when x=0, y=0."
+    },
+    {
+      "id": "isat-q003",
+      "prompt": "A table shows x: 0, 1, 2, 3 and y: 0, 8, 16, 24. What is the constant of proportionality r (in y = rx)?",
+      "type": "short",
+      "answer": "8",
+      "difficulty": "easy",
+      "explanation": "y/x = 8 for x=1,2,3 so r=8."
+    },
+    {
+      "id": "isat-q004",
+      "prompt": "A table shows x: 0, 2, 4, 6 and y: 0, 1, 2, 3. What is the constant of proportionality r (in y = rx)?",
+      "type": "mcq",
+      "choices": ["1/2", "2", "3", "1/3"],
+      "answer": "1/2",
+      "difficulty": "medium",
+      "explanation": "Using (2,1): r = y/x = 1/2."
+    },
+    {
+      "id": "isat-q005",
+      "prompt": "A graph of cakes packed c versus minutes m is proportional and includes the point (4, 240). How many cakes are packed in 1 minute?",
+      "type": "short",
+      "answer": "60",
+      "difficulty": "easy",
+      "explanation": "Rate is 240/4 = 60 cakes per minute."
+    },
+    {
+      "id": "isat-q006",
+      "prompt": "A proportional relationship includes the point (6, 360). Which equation matches it?",
+      "type": "mcq",
+      "choices": ["y = 60x", "y = 6x", "y = 360x", "y = x/60"],
+      "answer": "y = 60x",
+      "difficulty": "medium",
+      "explanation": "k = y/x = 360/6 = 60, so y=60x."
+    },
+    {
+      "id": "isat-q007",
+      "prompt": "Adriana uses 1 1/4 cups of pretzels for every 1/2 cup of raisins. How many cups of pretzels for 1 cup of raisins?",
+      "type": "short",
+      "answer": "2.5",
+      "difficulty": "medium",
+      "explanation": "Doubling 1/2 to 1 doubles pretzels: 1.25*2 = 2.5."
+    },
+    {
+      "id": "isat-q008",
+      "prompt": "A vendor's profit p is proportional to hot dogs sold h: p = 2h. What is the profit per hot dog?",
+      "type": "mcq",
+      "choices": ["$2", "$1", "$0.50", "$4"],
+      "answer": "$2",
+      "difficulty": "easy",
+      "explanation": "The constant of proportionality is 2 dollars per hot dog."
+    },
+    {
+      "id": "isat-q009",
+      "prompt": "A table shows x: 0, 1/5, 2/5, 3/5 and y: 0, 10, 20, 30. What is the constant of proportionality k (y = kx)?",
+      "type": "short",
+      "answer": "50",
+      "difficulty": "hard",
+      "explanation": "k = y/x = 10/(1/5) = 50."
+    },
+    {
+      "id": "isat-q010",
+      "prompt": "Which statement is TRUE for a proportional relationship?",
+      "type": "mcq",
+      "choices": ["The ratio y/x is constant for x>0.", "The difference y-x is constant.", "The sum x+y is constant.", "y is always greater than x."],
+      "answer": "The ratio y/x is constant for x>0.",
+      "difficulty": "easy",
+      "explanation": "Proportional means y=kx, so y/x=k for x>0."
+    },
+    {
+      "id": "isat-q011",
+      "prompt": "Select True or False: If a line is horizontal (y is constant), it represents a proportional relationship.",
+      "type": "mcq",
+      "choices": ["True", "False"],
+      "answer": "False",
+      "difficulty": "easy",
+      "explanation": "A proportional line must pass through (0,0) and be y=kx. A horizontal line usually does not."
+    },
+    {
+      "id": "isat-q012",
+      "prompt": "A sugar-water recipe uses 3/4 cup of sugar with 3 cups of water. How many cups of water are used for 1 cup of sugar?",
+      "type": "short",
+      "answer": "4",
+      "difficulty": "medium",
+      "explanation": "3 cups water per 3/4 sugar means water per 1 sugar is 3 / (3/4) = 4."
+    },
+    {
+      "id": "isat-q013",
+      "prompt": "A proportional graph compares cups of sugar (x) to cups of water (y). Which equation represents the recipe: 2 cups water for every 1/2 cup sugar?",
+      "type": "mcq",
+      "choices": ["y = 4x", "y = 2x", "y = x/4", "y = x + 4"],
+      "answer": "y = 4x",
+      "difficulty": "medium",
+      "explanation": "2 water per 1/2 sugar means 4 water per 1 sugar, so y=4x."
+    },
+    {
+      "id": "isat-q014",
+      "prompt": "Darius has a 24-ounce drink. He drinks 18 ounces. What percent of the drink is left?",
+      "type": "mcq",
+      "choices": ["25%", "50%", "75%", "6%"],
+      "answer": "25%",
+      "difficulty": "easy",
+      "explanation": "24-18=6 left. 6/24 = 1/4 = 25%."
+    },
+    {
+      "id": "isat-q015",
+      "prompt": "Katie buys a necklace for $14.50 plus 6% tax. Sharon buys a bracelet for $12.00 plus 6% tax. What is the total cost including tax (rounded to the nearest cent)?",
+      "type": "short",
+      "answer": "28.09",
+      "difficulty": "hard",
+      "explanation": "Total before tax: 26.50. Tax: 0.06*26.50=1.59. Total: 28.09."
+    },
+    {
+      "id": "isat-q016",
+      "prompt": "Three bags of flour and two bags of sugar weigh 32 lb. Four bags of flour weigh 32 lb. What is the ratio of the weight of a bag of flour to a bag of sugar?",
+      "type": "mcq",
+      "choices": ["4:1", "2:1", "1:2", "8:1"],
+      "answer": "2:1",
+      "difficulty": "hard",
+      "explanation": "Four flour = 32 so one flour = 8. Then 3 flour = 24, leaving 8 for 2 sugar, so one sugar = 4. Ratio flour:sugar = 8:4 = 2:1."
+    },
+    {
+      "id": "isat-q017",
+      "prompt": "Three bags of flour and two bags of sugar weigh 32 lb. Four bags of flour weigh 32 lb. How many pounds does one bag of sugar weigh?",
+      "type": "short",
+      "answer": "4",
+      "difficulty": "hard",
+      "explanation": "One flour is 32/4=8. Then 3 flour is 24, leaving 8 for 2 sugar, so one sugar is 4."
+    },
+    {
+      "id": "isat-q018",
+      "prompt": "A book costs $22.40 and shipping is a flat $3.60. Deal 1: 5% off the book price (not shipping). Deal 2: 10% off the book price (not shipping) if you buy 2 items. Deal 3: Free shipping if total before shipping is over $25. Which option is least expensive?\n\nA: No deal\nB: Use Deal 1\nC: Buy a $3 item and use Deal 2\nD: Buy a $3 item and use Deal 3",
+      "type": "mcq",
+      "choices": ["A", "B", "C", "D"],
+      "answer": "B",
+      "difficulty": "hard",
+      "explanation": "Deal 1 makes the book 22.40*0.95=21.28; plus shipping 3.60 gives 24.88, which is less than the other options."
+    },
+    {
+      "id": "isat-q019",
+      "prompt": "A proportional relationship between commission c (in dollars) and sales s is shown by the point (5, 40). What is the constant of proportionality r in c = rs?",
+      "type": "short",
+      "answer": "8",
+      "difficulty": "easy",
+      "explanation": "r = c/s = 40/5 = 8."
+    },
+    {
+      "id": "isat-q020",
+      "prompt": "A table shows x: 0, 1, 2, 3 and y: 0, 2, 4, 6. Which equation matches the table?",
+      "type": "mcq",
+      "choices": ["y = 2x", "y = x + 2", "y = x/2", "y = 6x"],
+      "answer": "y = 2x",
+      "difficulty": "easy",
+      "explanation": "y increases by 2 for each 1 in x and passes through (0,0)."
+    },
+    {
+      "id": "isat-q021",
+      "prompt": "Is the relationship proportional? x: 0, 2, 4, 6; y: 1, 2, 3, 4",
+      "type": "mcq",
+      "choices": ["Yes", "No"],
+      "answer": "No",
+      "difficulty": "medium",
+      "explanation": "It does not include (0,0), so it cannot be proportional."
+    },
+    {
+      "id": "isat-q022",
+      "prompt": "A recipe uses 2/3 cup sugar for 4 cups water. How many cups of sugar are used for 6 cups water?",
+      "type": "short",
+      "answer": "1",
+      "difficulty": "medium",
+      "explanation": "Scale factor from 4 to 6 is 1.5. (2/3)*1.5 = 1."
+    },
+    {
+      "id": "isat-q023",
+      "prompt": "Which table is proportional?\n\nA: x: 0, 1, 2, 3; y: 0, 1/4, 2/4, 3/4\nB: x: 0, 1, 2, 3; y: 0, 1/4, 3/4, 5/4\nC: x: 0, 1, 2, 3; y: 0, 2, 4, 7\nD: x: 0, 2, 4, 6; y: 0, 1, 2, 4",
+      "type": "mcq",
+      "choices": ["A", "B", "C", "D"],
+      "answer": "A",
+      "difficulty": "hard",
+      "explanation": "A has constant ratio y/x = 1/4 for x>0."
+    },
+    {
+      "id": "isat-q024",
+      "prompt": "A proportional relationship includes the point (3, 18). What is the value of y when x = 5?",
+      "type": "short",
+      "answer": "30",
+      "difficulty": "medium",
+      "explanation": "k=18/3=6, so y=6*5=30."
+    },
+    {
+      "id": "isat-q025",
+      "prompt": "Select True or False: If a table shows a constant ratio y/x for x>0 and includes (0,0), it represents a proportional relationship.",
+      "type": "mcq",
+      "choices": ["True", "False"],
+      "answer": "True",
+      "difficulty": "easy",
+      "explanation": "That is the definition of proportional: y = kx."
+    },
+    {
+      "id": "isat-q026",
+      "prompt": "A shirt costs $18 and there is 8% tax. What is the total cost (nearest cent)?",
+      "type": "short",
+      "answer": "19.44",
+      "difficulty": "medium",
+      "explanation": "Tax is 0.08*18=1.44, total is 19.44."
+    },
+    {
+      "id": "isat-q027",
+      "prompt": "A $50 item is discounted 15%. What is the sale price?",
+      "type": "short",
+      "answer": "42.5",
+      "difficulty": "medium",
+      "explanation": "15% of 50 is 7.5; 50-7.5=42.5."
+    },
+    {
+      "id": "isat-q028",
+      "prompt": "Which situation is proportional?",
+      "type": "mcq",
+      "choices": ["Cost = $10 + $3 per hour", "Distance = 60 miles per hour * time", "Height = starting 50 cm, grows 2 cm per day", "Score = 5 points bonus + 2 points per goal"],
+      "answer": "Distance = 60 miles per hour * time",
+      "difficulty": "medium",
+      "explanation": "Proportional relationships have no starting amount; they are k*time."
+    },
+    {
+      "id": "isat-q029",
+      "prompt": "A proportional graph goes through (2, 7). What is the constant of proportionality k?",
+      "type": "short",
+      "answer": "3.5",
+      "difficulty": "medium",
+      "explanation": "k=y/x=7/2=3.5."
+    },
+    {
+      "id": "isat-q030",
+      "prompt": "A store has a 20% off coupon. You buy two items for $30 and $15. What is the total after the coupon (no tax)?",
+      "type": "short",
+      "answer": "36",
+      "difficulty": "medium",
+      "explanation": "Total 45, 20% off means pay 80%: 0.8*45=36."
+    },
+    {
+      "id": "isat-q031",
+      "prompt": "A graph shows a line through the origin and the point (4, 20). Select True or False: The constant of proportionality is 5.",
+      "type": "mcq",
+      "choices": ["True", "False"],
+      "answer": "True",
+      "difficulty": "easy",
+      "explanation": "k=20/4=5."
+    },
+    {
+      "id": "isat-q032",
+      "prompt": "Which equation represents a proportional relationship with constant of proportionality 3/2?",
+      "type": "mcq",
+      "choices": ["y = (3/2)x", "y = x + 3/2", "y = (2/3)x", "y = 3/2"],
+      "answer": "y = (3/2)x",
+      "difficulty": "medium",
+      "explanation": "Proportional form is y=kx."
+    },
+    {
+      "id": "isat-q033",
+      "prompt": "A 64-ounce container is 75% full. How many ounces are in the container?",
+      "type": "short",
+      "answer": "48",
+      "difficulty": "medium",
+      "explanation": "0.75*64=48."
+    },
+    {
+      "id": "isat-q034",
+      "prompt": "A 64-ounce container has 48 ounces in it. What percent full is it?",
+      "type": "short",
+      "answer": "75",
+      "difficulty": "medium",
+      "explanation": "48/64=0.75, which is 75%."
+    },
+    {
+      "id": "isat-q035",
+      "prompt": "Which ratio is equivalent to 3:5?",
+      "type": "mcq",
+      "choices": ["6:10", "9:20", "12:15", "15:12"],
+      "answer": "6:10",
+      "difficulty": "easy",
+      "explanation": "Multiply both parts by 2: 3:5 = 6:10."
+    },
+    {
+      "id": "isat-q036",
+      "prompt": "A proportional table has x: 0, 3, 6, 9 and y: 0, 4.5, 9, 13.5. What is y when x = 12?",
+      "type": "short",
+      "answer": "18",
+      "difficulty": "medium",
+      "explanation": "k=4.5/3=1.5, so y=1.5*12=18."
+    },
+    {
+      "id": "isat-q037",
+      "prompt": "A drink mix uses 2 cups water for every 3/4 cup mix. How much water is needed for 1 cup of mix?",
+      "type": "mcq",
+      "choices": ["8/3", "3/8", "2.25", "1.5"],
+      "answer": "8/3",
+      "difficulty": "hard",
+      "explanation": "Water per 1 mix is 2 / (3/4) = 8/3 = 2.666..."
+    },
+    {
+      "id": "isat-q038",
+      "prompt": "A proportional relationship includes (10, 35). Select True or False: The value of y when x=2 is 7.",
+      "type": "mcq",
+      "choices": ["True", "False"],
+      "answer": "True",
+      "difficulty": "medium",
+      "explanation": "k=35/10=3.5, so y=3.5*2=7."
+    },
+    {
+      "id": "isat-q039",
+      "prompt": "Which table is NOT proportional?\n\nA: x: 0, 1, 2, 3; y: 0, 6, 12, 18\nB: x: 0, 2, 4, 6; y: 0, 5, 10, 15\nC: x: 0, 1, 2, 3; y: 0, 3, 7, 9\nD: x: 0, 3, 6, 9; y: 0, 2, 4, 6",
+      "type": "mcq",
+      "choices": ["A", "B", "C", "D"],
+      "answer": "C",
+      "difficulty": "hard",
+      "explanation": "C does not have a constant ratio y/x."
+    },
+    {
+      "id": "isat-q040",
+      "prompt": "A $40 book is 10% off (not including shipping). Shipping is $4. What is the total cost after the discount?",
+      "type": "short",
+      "answer": "40",
+      "difficulty": "medium",
+      "explanation": "10% of 40 is 4, so discounted book is 36. Add 4 shipping: 40."
+    }
+  ]
+}
