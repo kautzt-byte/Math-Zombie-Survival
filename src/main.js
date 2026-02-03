@@ -1,5 +1,10 @@
 import * as THREE from "../vendor/three.module.js";
 
+// Data collection (optional)
+// - Create a Google Apps Script web app endpoint (see DATA_COLLECTION.md)
+// - Paste the deployed URL here
+const DATA_ENDPOINT = "";
+
 const ARENA_RADIUS = 25;
 const WALL_HEIGHT = 6;
 const WALL_THICKNESS = 1.2;
@@ -338,6 +343,22 @@ let questionBank = [];
 let activeQuestion = null;
 let lastQuestionId = null;
 let reviveLocked = false;
+
+const recordReviveAttempt = async ({ questionId, correct }) => {
+  if (!DATA_ENDPOINT) return;
+  if (!questionId) return;
+  try {
+    // Use no-cors + text/plain to avoid CORS/preflight issues with Apps Script.
+    await fetch(DATA_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ questionId, correct: Boolean(correct) }),
+    });
+  } catch {
+    // Best-effort only; ignore network errors.
+  }
+};
 
 let bestScore = { wave: 0, time: 0 };
 let lastWaveUi = 0;
@@ -806,10 +827,12 @@ function attemptRevive(providedAnswer = null) {
   const userAnswer = normalizeAnswer(providedAnswer ?? reviveAnswer?.value);
   const correct = activeQuestion ? normalizeAnswer(activeQuestion.answer) : "1";
   if (userAnswer !== correct) {
+    recordReviveAttempt({ questionId: activeQuestion?.id ?? null, correct: false });
     showReviveFailure(activeQuestion ? activeQuestion.answer : "1", activeQuestion?.explanation ?? "");
     return;
   }
 
+  recordReviveAttempt({ questionId: activeQuestion?.id ?? null, correct: true });
   health = MAX_HEALTH;
   invulnTimer = 2;
   previousOverlaps = 0;
