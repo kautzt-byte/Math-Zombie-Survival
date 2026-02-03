@@ -3,7 +3,8 @@ import * as THREE from "../vendor/three.module.js";
 // Data collection (optional)
 // - Create a Google Apps Script web app endpoint (see DATA_COLLECTION.md)
 // - Paste the deployed URL here
-const DATA_ENDPOINT = "";
+const DATA_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbw1jhHJdTmujMLW79VeS0Vof62oqwPKQpc06QShDXklNjcSkkVVGkePQEHM-Jvu11g6/exec";
 
 const ARENA_RADIUS = 25;
 const WALL_HEIGHT = 6;
