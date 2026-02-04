@@ -377,6 +377,14 @@ const NUKE_SHAKE_DURATION = 0.55;
 const NUKE_FADE_DURATION = 0.42;
 const NUKE_SHAKE_INTENSITY = 1.2;
 
+const fadeOutWhiteout = () => {
+  if (!whiteout) return;
+  whiteout.style.opacity = "0";
+  setTimeout(() => {
+    if (whiteout) whiteout.style.display = "none";
+  }, 220);
+};
+
 let menuDriftTimer = null;
 const clearMenuDrift = () => {
   if (menuDriftTimer) {
@@ -552,8 +560,8 @@ const randomArenaPoint = () => {
 const startWave = () => {
   spawnRemaining = 3 + (wave - 1) * 2;
   spawnTimer = 0;
-  // 50% chance to spawn one power-up each wave.
-  if (Math.random() < 0.5) spawnPowerup();
+  // Spawn one power-up each wave.
+  spawnPowerup();
 };
 
 const spawnPowerup = () => {
@@ -802,7 +810,6 @@ const killAllZombies = () => {
 };
 
 const beginNukeSequence = () => {
-  deathCause = "nuke";
   killAllZombies();
   keys.clear();
   playerVelocity.set(0, 0, 0);
@@ -842,12 +849,7 @@ function attemptRevive(providedAnswer = null) {
   if (reviveAnswer) reviveAnswer.value = "";
   activeQuestion = null;
   deathCause = "zombies";
-  if (whiteout) {
-    whiteout.style.opacity = "0";
-    setTimeout(() => {
-      if (whiteout) whiteout.style.display = "none";
-    }, 220);
-  }
+  fadeOutWhiteout();
   setMode("playing");
 }
 
@@ -1059,9 +1061,11 @@ const animate = () => {
 
       if (whiteout) whiteout.style.opacity = String(t);
       if (t >= 1) {
-        // Fully white: now show the death/revive overlay with the correct message.
         camera.position.copy(cameraBasePosition);
-        setMode("gameover");
+        nukePhase = null;
+        nukePhaseTimer = 0;
+        setMode("playing");
+        fadeOutWhiteout();
       }
     }
   }
