@@ -31,7 +31,7 @@ const POWERUP_SPEED_MULT = 1.35;
 const POWERUP_MEDKIT_HEAL = 40;
 const POWERUP_SHIELD_DURATION = 3;
 const POWERUP_STUN_DURATION = 2.5;
-const POWERUP_NUKE_WEIGHT = 0.2;
+const POWERUP_NUKE_WEIGHT = 1;
 
 const playerRadius = 1.1;
 const enemyRadius = 1.0;
